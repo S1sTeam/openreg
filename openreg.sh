@@ -165,7 +165,7 @@ opencode_wrapper() {
 }
 
 # ── Main ──
-case "${1:-toggle}" in
+case "${1:-help}" in
   install|setup)
     echo
     install_warp
