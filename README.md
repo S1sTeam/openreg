@@ -6,7 +6,7 @@
 > Управление Cloudflare WARP из терминала. Автоматический прокси для opencode — обход лимитов запросов.
 
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/S1sTeam/openreg/blob/master/LICENSE)
-[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20wsl-blue)]()
+[![Platform](https://img.shields.io/badge/platform-linux_amd64%2Farm64-blue)]()
 [![WARP](https://img.shields.io/badge/WARP-Cloudflare-orange)]()
 
 ---
@@ -26,6 +26,9 @@ Cloudflare WARP меняет ваш выходной IP, что позволяе
 
 ## Установка
 
+> **openreg** работает только на **Linux**. WARP CLI и proxychains (LD_PRELOAD) — Linux-specific.  
+> На macOS и Windows скрипт не запустится — нет поддержки warp-cli + proxychains.
+
 ### Linux (Ubuntu/Debian)
 
 **Одной строкой:**
@@ -41,29 +44,6 @@ sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/op
 sudo chmod +x /usr/local/bin/openreg
 openreg install
 ```
-
-### macOS
-
-```bash
-# Скачать скрипт
-sudo curl -o /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.sh
-sudo chmod +x /usr/local/bin/openreg
-
-# Установить WARP (https://developers.cloudflare.com/warp-client/get-started/macos/)
-# После установки WARP:
-openreg install
-```
-
-### Windows (WSL)
-
-```bash
-# В терминале Ubuntu/Debian под WSL:
-sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.sh
-sudo chmod +x /usr/local/bin/openreg
-openreg install
-```
-
-> **Важно:** openreg работает только на Linux-ядре. На чистом Windows без WSL скрипт не запустится.
 
 ---
 
@@ -134,13 +114,9 @@ opencode ──▶ proxychains ──▶ WARP SOCKS5 ──▶ Cloudflare ──
 
 ## Требования
 
-- **Linux** (Ubuntu/Debian, amd64 или arm64) — нативное выполнение
-- **macOS** — через Homebrew или ручную установку WARP
-- **Windows** — требуется WSL (Windows Subsystem for Linux)
+- **Linux** (Ubuntu/Debian, amd64 или arm64)
 - **sudo** / root-доступ
 - **opencode** — установлен (`~/.opencode/bin/opencode`)
-
-> `openreg.sh` — bash-скрипт, работает на любой POSIX-системе с Linux-ядром.
 
 ---
 
