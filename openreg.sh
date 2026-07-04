@@ -64,9 +64,14 @@ install_warp() {
 }
 
 setup_proxychains() {
-  [ ! -f /etc/proxychains4.conf ] && apt-get install -y proxychains4 &>/dev/null
-  grep -q "socks5.*127.0.0.1.*40000" /etc/proxychains4.conf 2>/dev/null && return
-  cat > /etc/proxychains4.conf << 'PCEOF'
+  local PC_CONF="/etc/proxychains.conf"
+  [ ! -f "$PC_CONF" ] && apt-get install -y proxychains4 &>/dev/null
+  if grep -q "socks5.*127.0.0.1.*40000" "$PC_CONF" 2>/dev/null; then
+    return
+  fi
+  # backup original if it exists
+  [ -f "$PC_CONF" ] && cp "$PC_CONF" "${PC_CONF}.bak" 2>/dev/null
+  cat > "$PC_CONF" << 'PCEOF'
 strict_chain
 proxy_dns
 tcp_read_time_out 15000
@@ -102,8 +107,10 @@ warp_off() {
   echo -e "   ${CHECK} ${G}WARP disconnected${N}"
 }
 
+noproxy() { env -u LD_PRELOAD "$@"; }
+
 get_ip() {
-  local ip=$(curl -s --max-time 3 https://ipinfo.io/ip 2>/dev/null)
+  local ip=$(noproxy curl -s --max-time 3 https://ipinfo.io/ip 2>/dev/null)
   [ -n "$ip" ] && echo "$ip" || echo "—"
 }
 
@@ -152,7 +159,7 @@ dashboard() {
   box_top
   box_title "AI SERVICES"
   box_mid
-  if curl -sf http://127.0.0.1:26406/v1/models -o /dev/null; then
+  if noproxy curl -sf http://127.0.0.1:26406/v1/models -o /dev/null; then
     box_line "Klox API      ${G}●${N} ${G}online${N}  ${DIM}:26406${N}"
   else
     box_line "Klox API      ${R}●${N} ${R}offline${N} ${DIM}:26406${N}"
