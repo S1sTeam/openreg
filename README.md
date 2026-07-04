@@ -171,7 +171,7 @@ openreg/
 ## Поддержать проект
 
 [![Sponsor](https://img.shields.io/badge/sponsor-GitHub-dc143c)](https://github.com/sponsors/S1sTeam)
-[![Donate](https://img.shields.io/badge/donate-DonationAlerts-ff69b4)](https://www.donationalerts.com/r/klox)
+[![Donate](https://img.shields.io/badge/donate-DonationAlerts-ff69b4)](https://www.donationalerts.com/r/sysik_zhida)
 
 Любая поддержка помогает проекту жить и развиваться.
 
