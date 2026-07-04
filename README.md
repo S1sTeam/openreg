@@ -5,8 +5,8 @@
 
 > Управление Cloudflare WARP из терминала. Автоматический прокси для opencode — обход лимитов запросов.
 
-[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/S1sTeam/openreg/blob/master/LICENSE)
-[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20win-blue)]()
+[![License](https://img.shields.io/badge/%D0%BB%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F-MIT-green)](https://github.com/S1sTeam/openreg/blob/master/LICENSE)
+[![Platform](https://img.shields.io/badge/%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-linux%20%7C%20win-blue)]()
 [![WARP](https://img.shields.io/badge/WARP-Cloudflare-orange)]()
 
 ---
@@ -116,19 +116,19 @@ openreg install
 
 ---
 
-## Health Check
+## Проверка системы
 
-`openreg status` проверяет **все компоненты** системы и показывает итоговый статус:
+`openreg status` проверяет **все компоненты** и показывает итоговый статус:
 
 | Проверка | Что тестирует |
 |----------|---------------|
-| WARP proxy | Порт `40000` — слушает ли WARP |
-| proxychains conf | Файл `/etc/proxychains.conf` — правильная конфигурация |
-| proxychains route | Трафик через proxychains — меняется ли IP |
+| WARP прокси | Порт `40000` — слушает ли WARP |
+| Настройка proxychains | Файл `/etc/proxychains.conf` — правильная конфигурация |
+| Маршрут proxychains | Трафик через proxychains — меняется ли IP |
 | Klox API | `127.0.0.1:26406` — отвечает ли ваш API |
-| WARP connectivity | Cloudflare — работает ли туннель |
+| Подключение WARP | Cloudflare — работает ли туннель |
 
-В конце — **ALL SYSTEMS OK** (всё работает) или **ISSUES DETECTED** (что-то не так).
+В конце — **ВСЁ РАБОТАЕТ** или **ЕСТЬ ПРОБЛЕМЫ**.
 
 ---
 
