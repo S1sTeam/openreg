@@ -7,7 +7,7 @@ CHECK="${G}✓${N}"; CROSS="${R}✗${N}"
 OPENCODE_BIN="$HOME/.opencode/bin/opencode"
 AUTO_FILE="/tmp/.openreg_auto"
 
-VERSION="2.0.0"
+VERSION="2.1.0"
 
 # strip ANSI codes
 strip_ansi() { printf '%s' "$1" | sed 's/\x1b\[[0-9;]*[mK]//g'; }
@@ -102,7 +102,29 @@ warp_off() {
   echo -e "   ${CHECK} ${G}WARP disconnected${N}"
 }
 
-get_ip() { curl -s --max-time 3 https://ipinfo.io/ip 2>/dev/null || echo "—"; }
+get_ip() {
+  local ip=$(curl -s --max-time 3 https://ipinfo.io/ip 2>/dev/null)
+  [ -n "$ip" ] && echo "$ip" || echo "—"
+}
+
+chip_ip() {
+  local OLD=$(get_ip)
+  echo -e "   ${DIM}Old IP:${N} $OLD"
+  echo -e "   ${DIM}Rotating WARP identity...${N}"
+  warp-cli disconnect &>/dev/null
+  sleep 1
+  warp-cli registration new &>/dev/null
+  sleep 2
+  warp-cli connect &>/dev/null
+  sleep 3
+  local NEW=$(get_ip)
+  if [ "$NEW" != "—" ]; then
+    echo -e "   ${CHECK} ${G}New IP:${N} $NEW"
+    [ "$OLD" != "$NEW" ] && [ "$OLD" != "—" ] && echo -e "   ${CHECK} ${G}IP changed successfully${N}" || echo -e "   ${Y}IP unchanged, try again${N}"
+  else
+    echo -e "   ${CROSS} ${R}Failed to get new IP${N}"
+  fi
+}
 
 dashboard() {
   clear
@@ -138,7 +160,7 @@ dashboard() {
   box_line "opencode      ${BOLD}$("$OPENCODE_BIN" --version 2>/dev/null || echo "N/A")${N}"
   box_bot
   echo
-  echo -e "       ${DIM}openreg v${VERSION} — ${C}on${N}${DIM}|${C}off${N}${DIM}|${C}toggle${N}${DIM}|${C}auto${N}${DIM}|${C}install${N}${DIM}|${C}status${N}"
+  echo -e "       ${DIM}openreg v${VERSION} — ${C}on${N}${DIM}|${C}off${N}${DIM}|${C}toggle${N}${DIM}|${C}chip${N}${DIM}|${C}auto${N}${DIM}|${C}status${N}"
   echo
 }
 
@@ -166,6 +188,9 @@ case "${1:-dashboard}" in
     ;;
   toggle)
     if warp-cli status 2>/dev/null | grep -q "Connected"; then warp_off; else warp_on; fi
+    ;;
+  chip|rotate|newip)
+    chip_ip
     ;;
   auto)
     case "${2:-status}" in
@@ -223,6 +248,7 @@ WEOF
     echo -e "   openreg ${G}off${N}                  disable WARP"
     echo -e "   openreg ${G}toggle${N}               toggle WARP"
     echo -e "   openreg ${G}auto${N} ${C}on/off${N}           auto-WARP for opencode"
+    echo -e "   openreg ${G}chip${N}                 rotate IP"
     echo -e "   openreg ${G}install${N}              install & configure WARP"
     echo
     echo -e " ${BOLD}Options:${N}"
@@ -235,6 +261,6 @@ WEOF
     ;;
   *)
     echo -e " ${Y}Unknown command:${N} $1"
-    echo -e " ${DIM}Try:${N} openreg ${G}on${N}|${R}off${N}|${C}status${N}|${M}auto${N}|${B}install${N}"
+    echo -e " ${DIM}Try:${N} openreg ${G}on${N}|${R}off${N}|${C}status${N}|${M}chip${N}|${M}auto${N}|${B}install${N}"
     ;;
 esac
