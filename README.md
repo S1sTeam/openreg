@@ -8,6 +8,7 @@
 [![License](https://img.shields.io/badge/%D0%BB%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F-MIT-green)](https://github.com/S1sTeam/openreg/blob/master/LICENSE)
 [![Platform](https://img.shields.io/badge/%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-linux%20%7C%20win-blue)]()
 [![WARP](https://img.shields.io/badge/WARP-Cloudflare-orange)]()
+[![Sponsor](https://img.shields.io/badge/sponsor-%F0%9F%92%96-dc143c)](https://github.com/sponsors/S1sTeam)
 
 ---
 
@@ -166,6 +167,13 @@ openreg/
 ```
 
 ---
+
+## Поддержать проект
+
+[![Sponsor](https://img.shields.io/badge/sponsor-GitHub-dc143c)](https://github.com/sponsors/S1sTeam)
+[![Donate](https://img.shields.io/badge/donate-DonationAlerts-ff69b4)](https://www.donationalerts.com/r/klox)
+
+Любая поддержка помогает проекту жить и развиваться.
 
 ## Лицензия
 
