@@ -38,11 +38,10 @@ box_title() {
 
 logo() {
   echo
-  echo -e "       ${C} OOO  PPPP  EEEEE N   N RRRR  EEEEE  GGG${N}"
-  echo -e "       ${C}O   O P   P E     NN  N R   R E     G${N}"
-  echo -e "       ${C}O   O PPPP  EEEE  N N N RRRR  EEEE  G GG${N}"
-  echo -e "       ${C}O   O P     E     N  NN R  R  E     G   G${N}"
-  echo -e "       ${C} OOO  P     EEEEE N   N R   R EEEEE  GGG${N}"
+  echo -e "                                   ${DIM}▄${N}"
+  echo -e "       ${BOLD}${C}█▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀▄ █▀▀█ █▀▀█${N}"
+  echo -e "       ${BOLD}${C}█  █ █  █ █▀▀▀ █  █ █  █ █▀▀▀ █▀▀▄${N}"
+  echo -e "       ${BOLD}${C}▀▀▀▀ █▀▀▀ ▀▀▀▀ ▀  ▀ █▀▀▀ ▀▀▀▀ ▀  ▀${N}"
   echo
 }
 
