@@ -100,26 +100,8 @@ openreg install
 ## Как это работает
 
 ```
-opencode → openreg wrapper → proxychains → WARP SOCKS5 (:40000) → Cloudflare → opencode API
-```
-
-```
-┌─────────────────┐     ┌──────────────┐     ┌──────────────────┐
-│ opencode        │────▶│ proxychains  │────▶│ WARP (SOCKS5)    │
-│ (ваш терминал)  │     │ LD_PRELOAD   │     │ 127.0.0.1:40000  │
-└─────────────────┘     └──────────────┘     └────────┬─────────┘
-                                                       │
-                                                       ▼
-                                              ┌──────────────────┐
-                                              │ Cloudflare WARP  │
-                                              │ (разные IP)      │
-                                              └────────┬─────────┘
-                                                       │
-                                                       ▼
-                                              ┌──────────────────┐
-                                              │ opencode API     │
-                                              │ (лимиты сброшены)│
-                                              └──────────────────┘
+opencode ──▶ proxychains ──▶ WARP SOCKS5 ──▶ Cloudflare ──▶ API
+терминал      LD_PRELOAD       :40000          туннель       без лимитов
 ```
 
 **Ключевые компоненты:**
