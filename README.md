@@ -26,13 +26,29 @@ Cloudflare WARP меняет ваш выходной IP, что позволяе
 
 ## Установка
 
-### Linux
+### Linux — deb-пакет (Debian/Ubuntu)
+
+```bash
+# Скачать и установить .deb
+wget https://github.com/S1sTeam/openreg/releases/download/v2.1.0/openreg_2.1.0_all.deb
+sudo dpkg -i openreg_2.1.0_all.deb
+openreg install
+```
+
+### Linux — скрипт (любой дистрибутив)
 
 ```bash
 # Одной строкой
 sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.sh \
   && sudo chmod +x /usr/local/bin/openreg \
   && openreg install
+```
+
+**Вручную:**
+```bash
+sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.sh
+sudo chmod +x /usr/local/bin/openreg
+openreg install
 ```
 
 ### Windows (PowerShell)
@@ -48,13 +64,6 @@ irm https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.ps1 -OutFile 
 > ```powershell
 > Set-Alias openreg C:\путь\к\openreg.ps1
 > ```
-
-**Вручную:**
-```bash
-sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.sh
-sudo chmod +x /usr/local/bin/openreg
-openreg install
-```
 
 ---
 
