@@ -151,6 +151,34 @@ dashboard() {
     *)         MODE_SHORT="${DIM}${MODE}${N}" ;;
   esac
 
+  # end-to-end checks
+  local ALL_OK=true
+  local PC_FILE_OK=false; [ -f /etc/proxychains.conf ] && grep -q "socks5.*127.0.0.1.*40000" /etc/proxychains.conf 2>/dev/null && PC_FILE_OK=true
+  local WARP_PORT=false; ss -tlnp 2>/dev/null | grep -q ":40000 " && WARP_PORT=true
+  local WARP_IPC=false; noproxy curl -s --max-time 3 http://connectivitycheck.cloudflare.com/cdn-cgi/trace 2>/dev/null | grep -q "warp=on" && WARP_IPC=true
+  local API_OK=false; noproxy curl -sf http://127.0.0.1:26406/v1/models -o /dev/null 2>/dev/null && API_OK=true
+  local PC_PROXY_OK=false
+  if $CON; then
+    local TEST_IP=$(env LD_PRELOAD=libproxychains.so.3 curl -s --max-time 5 https://ipinfo.io/ip 2>/dev/null)
+    [ -n "$TEST_IP" ] && [ "$TEST_IP" != "$IP" ] 2>/dev/null && PC_PROXY_OK=true
+  fi
+
+  box_top
+  box_title "HEALTH CHECK"
+  box_mid
+  if $WARP_PORT && $CON; then box_line "WARP proxy        ${G}● passing${N}"; else box_line "WARP proxy        ${R}● failing${N}" && ALL_OK=false; fi
+  if $PC_FILE_OK; then box_line "proxychains conf  ${G}● passing${N}"; else box_line "proxychains conf  ${R}● failing${N}" && ALL_OK=false; fi
+  if $PC_PROXY_OK; then box_line "proxychains route ${G}● passing${N}"; else box_line "proxychains route ${DIM}⊙ skipped${N}"; fi
+  if $API_OK; then box_line "Klox API          ${G}● passing${N}"; else box_line "Klox API          ${R}● failing${N}" && ALL_OK=false; fi
+  if $WARP_IPC; then box_line "WARP connectivity ${G}● passing${N}"; else box_line "WARP connectivity ${Y}● no warp${N}"; fi
+  box_mid
+  if $ALL_OK; then
+    box_line "                           ${BOLD}${G}ALL SYSTEMS OK${N}"
+  else
+    box_line "                           ${BOLD}${R}ISSUES DETECTED${N}"
+  fi
+  box_bot
+  echo
   box_top
   box_title "WARP STATUS"
   box_mid
@@ -165,7 +193,7 @@ dashboard() {
   box_top
   box_title "SERVICES"
   box_mid
-  if noproxy curl -sf http://127.0.0.1:26406/v1/models -o /dev/null; then
+  if $API_OK; then
     box_line "Klox API      ${G}● ${G}online${N}    ${DIM}:26406${N}"
   else
     box_line "Klox API      ${R}● ${R}offline${N}   ${DIM}:26406${N}"
