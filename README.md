@@ -53,11 +53,16 @@ openreg install
 
 | Команда | Действие |
 |---------|----------|
-| `openreg` |显示 справку |
+| `openreg` | Показать дашборд |
 | `openreg on` | Включить WARP |
 | `openreg off` | Выключить WARP |
-| `openreg toggle` | Переключить WARP (вкл/выкл) |
-| `openreg status` | Показать статус |
+| `openreg toggle` | Переключить WARP |
+| `openreg chip` | Сменить IP (перерегистрация) |
+| `openreg status` | Показать дашборд |
+| `openreg auto on/off` | Авто-WARP для opencode |
+| `openreg install` | Установка и настройка WARP |
+| `openreg help` | Справка |
+| `openreg version` | Версия |
 
 ### Авто-режим для opencode
 
