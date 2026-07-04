@@ -1,4 +1,7 @@
 # openreg
+<p align="center">
+  <img src="https://i.postimg.cc/qMbPD48Q/Max-a-Sdelaj-fotku-razrese.png" alt="openreg banner"/>
+</p>
 
 > Управление Cloudflare WARP из терминала. Автоматический прокси для opencode — обход лимитов запросов.
 
