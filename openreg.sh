@@ -38,10 +38,9 @@ box_title() {
 
 logo() {
   echo
-  echo -e "                                   ${DIM}▄${N}"
   echo -e "       ${BOLD}${C}█▀▀█ █▀▀█ ▀▀█▀▀ █▀▀▀ █▀▀▀ █▀▀█ █▀▀█${N}"
-  echo -e "       ${BOLD}${C}█  █ █▀▀▀   █   █▀▀▀ █    █  █ █▀▀▀${N}"
-  echo -e "       ${BOLD}${C}▀▀▀▀ ▀     ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀${N}"
+  echo -e "       ${BOLD}${C}█  █ █  █   █   █▀▀▀ █    █  █ █▀▀▀${N}"
+  echo -e "       ${BOLD}${C}▀▀▀▀ █▀▀▀   █   ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀${N}"
   echo
 }
 
@@ -140,16 +139,23 @@ dashboard() {
   local WS=$(warp-cli status 2>/dev/null)
   local CON=false; echo "$WS" | grep -q "Connected" && CON=true
   local MODE=$(warp-cli settings 2>/dev/null | grep "Mode:" | sed 's/.*Mode://' | xargs)
+  [ -z "$MODE" ] && MODE="—"
   local IP=$($CON && get_ip || echo "—")
   local AUTO=$([ -f "$AUTO_FILE" ] && echo "${G}ON${N}" || echo "${DIM}OFF${N}")
   local PC=$([ -n "$LD_PRELOAD" ] && echo "$LD_PRELOAD" | grep -q "proxychains" && echo "${G}active${N}" || echo "${DIM}inactive${N}")
   local STAT=$($CON && echo "${G}● Connected${N}" || echo "${R}● Disconnected${N}")
+  local MODE_SHORT=""
+  case "$MODE" in
+    WarpProxy) MODE_SHORT="${G}WarpProxy${N}" ;;
+    warp+doh)  MODE_SHORT="${G}warp+doh${N}" ;;
+    *)         MODE_SHORT="${DIM}${MODE}${N}" ;;
+  esac
 
   box_top
   box_title "WARP STATUS"
   box_mid
   box_line "Status                         ${STAT}"
-  box_line "Mode                           ${MODE:-N/A}"
+  box_line "Mode                           ${MODE_SHORT}"
   box_line "Proxy                          ${DIM}127.0.0.1:40000${N}"
   box_line "Current IP                     ${IP}"
   box_line "Auto-mode                      ${AUTO}"
@@ -157,12 +163,12 @@ dashboard() {
   box_bot
   echo
   box_top
-  box_title "AI SERVICES"
+  box_title "SERVICES"
   box_mid
   if noproxy curl -sf http://127.0.0.1:26406/v1/models -o /dev/null; then
-    box_line "Klox API      ${G}●${N} ${G}online${N}  ${DIM}:26406${N}"
+    box_line "Klox API      ${G}● ${G}online${N}    ${DIM}:26406${N}"
   else
-    box_line "Klox API      ${R}●${N} ${R}offline${N} ${DIM}:26406${N}"
+    box_line "Klox API      ${R}● ${R}offline${N}   ${DIM}:26406${N}"
   fi
   box_line "opencode      ${BOLD}$("$OPENCODE_BIN" --version 2>/dev/null || echo "N/A")${N}"
   box_bot
@@ -250,17 +256,17 @@ WEOF
     echo -e " ${DIM}openreg — WARP proxy manager for opencode${N}"
     echo
     echo -e " ${BOLD}Commands:${N}"
-    echo -e "   openreg ${G}status${N}               show WARP dashboard"
-    echo -e "   openreg ${G}on${N}                   enable WARP"
-    echo -e "   openreg ${G}off${N}                  disable WARP"
-    echo -e "   openreg ${G}toggle${N}               toggle WARP"
-    echo -e "   openreg ${G}auto${N} ${C}on/off${N}           auto-WARP for opencode"
-    echo -e "   openreg ${G}chip${N}                 rotate IP"
-    echo -e "   openreg ${G}install${N}              install & configure WARP"
+    echo -e "   openreg ${G}status${N}              show WARP dashboard"
+    echo -e "   openreg ${G}on${N}                  enable WARP proxy"
+    echo -e "   openreg ${G}off${N}                 disable WARP proxy"
+    echo -e "   openreg ${G}toggle${N}              toggle WARP proxy"
+    echo -e "   openreg ${G}chip${N}                rotate IP identity"
+    echo -e "   openreg ${G}auto${N} ${C}on/off${N}          auto-proxy for opencode"
+    echo -e "   openreg ${G}install${N}             install & setup WARP"
     echo
     echo -e " ${BOLD}Options:${N}"
-    echo -e "   ${DIM}-h, --help${N}                   show help"
-    echo -e "   ${DIM}-v, --version${N}                show version"
+    echo -e "   ${DIM}-h, --help${N}                  show this help"
+    echo -e "   ${DIM}-v, --version${N}               show version"
     echo
     echo -e " ${DIM}After ${C}openreg auto on${DIM}, all opencode commands${N}"
     echo -e " ${DIM}automatically route through WARP proxy.${N}"
