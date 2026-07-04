@@ -5,8 +5,8 @@
 
 > Управление Cloudflare WARP из терминала. Автоматический прокси для opencode — обход лимитов запросов.
 
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-linux-amd64%20|%20arm64-blue)]()
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/S1sTeam/openreg/blob/master/LICENSE)
+[![Platform](https://img.shields.io/badge/platform-linux_amd64%2Farm64-blue)]()
 [![WARP](https://img.shields.io/badge/WARP-Cloudflare-orange)]()
 
 ---
