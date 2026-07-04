@@ -64,12 +64,11 @@ openreg install
 
 | Команда | Действие |
 |---------|----------|
-| `openreg` | Показать дашборд |
+| `openreg` / `openreg status` | Дашборд + Health Check |
 | `openreg on` | Включить WARP |
 | `openreg off` | Выключить WARP |
 | `openreg toggle` | Переключить WARP |
 | `openreg chip` | Сменить IP (перерегистрация) |
-| `openreg status` | Показать дашборд |
 | `openreg auto on/off` | Авто-WARP для opencode |
 | `openreg install` | Установка и настройка WARP |
 | `openreg help` | Справка |
@@ -105,6 +104,22 @@ openreg install
 3. Настроит proxychains (socks5 `127.0.0.1:40000`)
 4. Переведёт WARP в режим прокси
 5. Исключит локальные сети из прокси
+
+---
+
+## Health Check
+
+`openreg status` проверяет **все компоненты** системы и показывает итоговый статус:
+
+| Проверка | Что тестирует |
+|----------|---------------|
+| WARP proxy | Порт `40000` — слушает ли WARP |
+| proxychains conf | Файл `/etc/proxychains.conf` — правильная конфигурация |
+| proxychains route | Трафик через proxychains — меняется ли IP |
+| Klox API | `127.0.0.1:26406` — отвечает ли ваш API |
+| WARP connectivity | Cloudflare — работает ли туннель |
+
+В конце — **ALL SYSTEMS OK** (всё работает) или **ISSUES DETECTED** (что-то не так).
 
 ---
 
