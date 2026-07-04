@@ -1,8 +1,8 @@
 # openreg
 
-> Управление Cloudflare WARP из терминала. Автоматический прокси для opencode — обход лимитов запросов.
+> Cloudflare WARP manager for your terminal. Auto-proxy for opencode — bypass rate limits.
 
-## Установка
+## Install
 
 **Linux — deb:**
 ```bash
@@ -11,62 +11,43 @@ sudo dpkg -i openreg_2.1.0_all.deb
 openreg install
 ```
 
-**Linux — скрипт:**
+**Linux — script:**
 ```bash
-sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.sh
+sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/EN/openreg.sh
 sudo chmod +x /usr/local/bin/openreg
 openreg install
 ```
 
 **Windows:**
 ```powershell
-irm https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.ps1 -OutFile openreg.ps1
+irm https://raw.githubusercontent.com/S1sTeam/openreg/EN/openreg.ps1 -OutFile openreg.ps1
 .\openreg.ps1 install
 ```
 
-## Команды
+## Commands
 
-| Команда | Действие |
-|---------|----------|
-| `openreg` / `openreg status` | Дашборд + Health Check |
-| `openreg on` | Включить WARP |
-| `openreg off` | Выключить WARP |
-| `openreg toggle` | Переключить WARP |
-| `openreg chip` | Сменить IP |
-| `openreg auto on/off` | Авто-WARP для opencode |
-| `openreg install` | Установка и настройка WARP |
+| Command | Action |
+|---------|--------|
+| `openreg` / `openreg status` | Dashboard + Health Check |
+| `openreg on` | Enable WARP |
+| `openreg off` | Disable WARP |
+| `openreg toggle` | Toggle WARP |
+| `openreg chip` | Rotate IP |
+| `openreg auto on/off` | Auto-WARP for opencode |
+| `openreg install` | Setup WARP |
 
-## Проверка системы
+## Health Check
 
-`openreg status` проверяет все компоненты:
+`openreg status` checks all components:
 
-- WARP прокси (порт `40000`)
-- Настройка proxychains (`/etc/proxychains.conf`)
-- Маршрут proxychains (меняется ли IP)
-- Klox API (`127.0.0.1:26406`)
-- Подключение WARP (Cloudflare)
+- **WARP proxy** — port `40000`
+- **proxychains config** — configuration file
+- **proxychains route** — does IP change
+- **Klox API** — API endpoint
+- **WARP connectivity** — Cloudflare tunnel
 
-В конце: **ВСЁ РАБОТАЕТ** или **ЕСТЬ ПРОБЛЕМЫ**.
-
-## Как это работает
+## How it works
 
 ```
 opencode ──▶ proxychains ──▶ WARP SOCKS5 ──▶ Cloudflare ──▶ API
-терминал      LD_PRELOAD       :40000          туннель       без лимитов
-```
-
-## Health Check скриншот
-
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│  HEALTH CHECK                                                         │
-├──────────────────────────────────────────────────────────────────────┤
-│ WARP proxy        ● passing                                           │
-│ proxychains conf  ● passing                                           │
-│ proxychains route ● passing                                           │
-│ Klox API          ● passing                                           │
-│ WARP connectivity ● passing                                           │
-├──────────────────────────────────────────────────────────────────────┤
-│                           ВСЁ РАБОТАЕТ                               │
-└──────────────────────────────────────────────────────────────────────┘
 ```
