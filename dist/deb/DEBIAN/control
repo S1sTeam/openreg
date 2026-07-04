@@ -1,0 +1,10 @@
+Package: openreg
+Version: 2.1.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: bash, curl, warp-cli, proxychains4
+Maintainer: S1sTeam
+Description: WARP proxy manager for opencode
+ Manage Cloudflare WARP from terminal.
+ Auto-proxy for opencode — bypass rate limits.

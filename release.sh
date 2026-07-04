@@ -10,7 +10,7 @@ mkdir -p "$DIST"
 # tar.gz
 cp openreg.sh "$DIST/$NAME"
 chmod +x "$DIST/$NAME"
-tar -czf "$TAR" -C "$DIST" "$NAME" openreg.ps1
+cp openreg.ps1 "$DIST/" && tar -czf "$TAR" -C "$DIST" "$NAME" openreg.ps1
 echo "  ✓ $TAR"
 
 # .deb

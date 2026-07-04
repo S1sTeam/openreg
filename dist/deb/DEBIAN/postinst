@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+chmod +x /usr/local/bin/openreg /usr/local/bin/openreg.ps1 2>/dev/null || true
+echo "  openreg installed."
+echo "  Run 'openreg install' to set up WARP."
