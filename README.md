@@ -6,7 +6,7 @@
 > Управление Cloudflare WARP из терминала. Автоматический прокси для opencode — обход лимитов запросов.
 
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/S1sTeam/openreg/blob/master/LICENSE)
-[![Platform](https://img.shields.io/badge/platform-linux_amd64%2Farm64-blue)]()
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20win-blue)]()
 [![WARP](https://img.shields.io/badge/WARP-Cloudflare-orange)]()
 
 ---
@@ -26,17 +26,28 @@ Cloudflare WARP меняет ваш выходной IP, что позволяе
 
 ## Установка
 
-> **openreg** работает только на **Linux**. WARP CLI и proxychains (LD_PRELOAD) — Linux-specific.  
-> На macOS и Windows скрипт не запустится — нет поддержки warp-cli + proxychains.
+### Linux
 
-### Linux (Ubuntu/Debian)
-
-**Одной строкой:**
 ```bash
+# Одной строкой
 sudo wget -O /usr/local/bin/openreg https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.sh \
   && sudo chmod +x /usr/local/bin/openreg \
   && openreg install
 ```
+
+### Windows (PowerShell)
+
+```powershell
+# Скачать и запустить
+irm https://raw.githubusercontent.com/S1sTeam/openreg/main/openreg.ps1 -OutFile openreg.ps1
+.\openreg.ps1 install
+```
+
+> Требуется [Cloudflare WARP](https://developers.cloudflare.com/warp-client/get-started/windows/) для Windows.  
+> После установки WARP добавьте `openreg.ps1` в PATH или создайте алиас:
+> ```powershell
+> Set-Alias openreg C:\путь\к\openreg.ps1
+> ```
 
 **Вручную:**
 ```bash
@@ -114,8 +125,8 @@ opencode ──▶ proxychains ──▶ WARP SOCKS5 ──▶ Cloudflare ──
 
 ## Требования
 
-- **Linux** (Ubuntu/Debian, amd64 или arm64)
-- **sudo** / root-доступ
+- **Linux**: bash, sudo, warp-cli, proxychains
+- **Windows**: PowerShell 5+, [Cloudflare WARP](https://developers.cloudflare.com/warp-client/get-started/windows/)
 - **opencode** — установлен (`~/.opencode/bin/opencode`)
 
 ---
@@ -124,9 +135,10 @@ opencode ──▶ proxychains ──▶ WARP SOCKS5 ──▶ Cloudflare ──
 
 ```
 openreg/
-├── openreg.sh    # Главный скрипт
-├── README.md     # Этот файл
-└── LICENSE       # MIT
+├── openreg.sh     # Linux (bash)
+├── openreg.ps1    # Windows (PowerShell)
+├── README.md
+└── LICENSE
 ```
 
 ---
